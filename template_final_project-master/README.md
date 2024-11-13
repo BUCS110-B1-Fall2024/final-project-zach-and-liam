@@ -1,18 +1,18 @@
-
-:warning: Everything between << >> needs to be replaced (remove << >> after replacing)
-
-# << Project Title >>
+Zach and Liam: Snake Like Game
 ## CS110 B1 Final Project  << Semester, Year >>
+Semester 1, 2024
 
 ## Team Members
 
-<< List team member names >>
+Zach Serio, Liam Fowler
 
 ***
 
 ## Project Description
 
-<< Give an overview of your project >>
+We Plan To Make A Game Similar To The Snake Game Where The Snake Has To Eat Objects To Grow In Size 
+Without Touching The Border Or Part Of Itself. But, We Plan To Add A Twist In The Form Of Powerups 
+By Pressing A Button And Potentially More
 
 ***    
 
@@ -20,21 +20,21 @@
 
 ### Initial Design
 
-![initial gui](assets/gui.jpg)
+![initial gui](CS110_Final_GUI_Draft.png)
 
 ### Final Design
 
-![final gui](assets/finalgui.jpg)
+![final gui] Do Not Have At The Current Moment
 
 ## Program Design
 
 ### Features
 
-1. << Feature 1 >>
-2. << Feature 2 >>
-3. << Feature 3 >>
-4. << Feature 4 >>
-5. << Feature 5 >>
+1. Snake Will Move Constantly
+2. Snake Will Increase In Size After Eating An Object
+3. Start/End Menu
+4. Object Will Randomly Spawn At A New Spot When Eaten
+5. Powerups Can Be Used By Pressing A Specific/Unqiue Button After A Certain Score Is Reached
 
 ### Classes
 
