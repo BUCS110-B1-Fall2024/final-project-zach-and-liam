@@ -20,7 +20,7 @@ By Pressing A Button And Potentially More
 
 ### Initial Design
 
-![initial gui](CS110_Final_GUI_Draft.png)
+![initial gui] (CS110_Final_GUI_Draft.png)
 
 ### Final Design
 
