@@ -1,5 +1,5 @@
 Zach and Liam: Snake Like Game
-## CS110 B1 Final Project  << Semester, Year >>
+## CS110 B1 Final Project  
 Semester 1, 2024
 
 ## Team Members
