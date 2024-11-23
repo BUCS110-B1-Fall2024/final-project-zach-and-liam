@@ -38,7 +38,8 @@ By Pressing A Button And Potentially More
 
 ### Classes
 
-- << You should have a list of each of your classes with a description >>
+1. Snake: Creates Starting Snake
+2. Eatable Object: Creates Object At A Random Location
 
 ## ATP
 
