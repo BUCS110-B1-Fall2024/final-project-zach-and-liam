@@ -1,7 +1,7 @@
 import random
 
 class Snake: 
- """Creates Snake And Sets Its Starting Position/Length"""
+    """Creates Snake And Sets Its Starting Position/Length"""
 
     def __init__(self, length = 3, x = 200, y = 200): 
         self.length = length
@@ -10,7 +10,7 @@ class Snake:
 
 
 class Eatable_Object:
- """Creates The Eatable Object at A Random Location Each Time"""
+    """Creates The Eatable Object at A Random Location Each Time"""
     
     def __init__(self, x = random.randrange(0,401), y = random.randrange(0,401)):
        self.x = x
