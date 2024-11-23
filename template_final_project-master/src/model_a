@@ -1,0 +1,16 @@
+import random
+
+class Snake: 
+
+    def __init__(self, length = 3, x = 200, y = 200): 
+        self.length = length
+        self.x = x
+        self.y = y
+
+
+class Eatable_Object:
+    
+    def __init__(self, x = random.randrange(0,401), y = random.randrange(0,401)):
+       self.x = x
+       self.y = y
+       
