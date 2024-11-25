@@ -1,1 +1,71 @@
+import pygame
+import random
+from model_a import Snake, Eatable_Object  
+
+class Controller:
+    """Manages game logic and events."""
+
+    def __init__(self):
+        """Initializes the game window and objects."""
+        pygame.init()
+        self.WIDTH, self.HEIGHT = 400, 400
+        self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
+        self.clock = pygame.time.Clock()
+
+        # Initialize models
+        self.snake = Snake()  
+        self.apple = Eatable_Object()  
+
+        self.snake_body = [(self.snake.x, self.snake.y)]
+        self.snake_dir = (0, 0)
+        self.running = True
+
+    def handle_events(self):
+        """Handles user input and game events."""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP and self.snake_dir != (0, 20):
+                    self.snake_dir = (0, -20)
+                elif event.key == pygame.K_DOWN and self.snake_dir != (0, -20):
+                    self.snake_dir = (0, 20)
+                elif event.key == pygame.K_LEFT and self.snake_dir != (20, 0):
+                    self.snake_dir = (-20, 0)
+                elif event.key == pygame.K_RIGHT and self.snake_dir != (-20, 0):
+                    self.snake_dir = (20, 0)
+
+    def update_models(self):
+        """Updates the game state and checks collisions."""
+        if self.snake_dir != (0, 0):
+            new_head = (self.snake_body[0][0] + self.snake_dir[0], self.snake_body[0][1] + self.snake_dir[1])
+            self.snake_body = [new_head] + self.snake_body[:-1]
+
+        # Check collision with the apple
+        if self.snake_body[0] == (self.apple.x, self.apple.y):
+            self.snake_body.append(self.snake_body[-1])  
+            self.apple.x = random.randrange(0, self.WIDTH, 20)
+            self.apple.y = random.randrange(0, self.HEIGHT, 20)
+
+    def draw(self):
+        """Renders the game objects on the screen."""
+        self.screen.fill((0, 0, 0))  
+        for segment in self.snake_body:
+            pygame.draw.rect(self.screen, (0, 255, 0), (*segment, 20, 20))  
+        pygame.draw.rect(self.screen, (255, 0, 0), (self.apple.x, self.apple.y, 20, 20))  
+        pygame.display.flip()
+
+    def mainloop(self):
+        """Main game loop."""
+        while self.running:
+            self.handle_events()
+            self.update_models()
+            self.draw()
+            self.clock.tick(10)  
+        pygame.quit()
+
+# Run the controller
+if __name__ == "__main__":
+    game = Controller()
+    game.mainloop()
 
