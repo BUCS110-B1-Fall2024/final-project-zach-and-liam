@@ -19,6 +19,7 @@ class Controller:
         self.snake_body = [(self.snake.x, self.snake.y)]
         self.snake_dir = (0, 0)
         self.running = True
+        
 
     def handle_events(self):
         """Handles user input and game events."""
@@ -28,32 +29,78 @@ class Controller:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP and self.snake_dir != (0, 20):
                     self.snake_dir = (0, -20)
+
                 elif event.key == pygame.K_DOWN and self.snake_dir != (0, -20):
                     self.snake_dir = (0, 20)
+        
                 elif event.key == pygame.K_LEFT and self.snake_dir != (20, 0):
                     self.snake_dir = (-20, 0)
+
                 elif event.key == pygame.K_RIGHT and self.snake_dir != (-20, 0):
                     self.snake_dir = (20, 0)
+            
+
 
     def update_models(self):
-        """Updates the game state and checks collisions."""
+        """Updates the game state"""
         if self.snake_dir != (0, 0):
             new_head = (self.snake_body[0][0] + self.snake_dir[0], self.snake_body[0][1] + self.snake_dir[1])
             self.snake_body = [new_head] + self.snake_body[:-1]
+
+         
+            if self.snake_dir == (20,0):
+             self.snake.x = self.snake.x + 20
+
+            if self.snake_dir == (-20, 0):
+             self.snake.x = self.snake.x - 20
+
+            if self.snake_dir == (0,20):
+             self.snake.y = self.snake.y - 20
+
+            if self.snake_dir == (0, -20):
+             self.snake.y = self.snake.y + 20
+
+                
+            if self.snake.x > 380 or self.snake.x < 0 or self.snake.y > 400 or self.snake.y < 20:
+             self.running = False
+
 
         # Check collision with the apple
         if self.snake_body[0] == (self.apple.x, self.apple.y):
             self.snake_body.append(self.snake_body[-1])  
             self.apple.x = random.randrange(0, self.WIDTH, 20)
             self.apple.y = random.randrange(0, self.HEIGHT, 20)
+            self.snake.score += 1
+        
+        if self.snake_body[0] == self.snake_body:
+            self.running = False
+        
+        # Started Working On Beginning Of Snake Contact Ending The Game, Will Complete Later
+            
+
+        for segment in self.snake_body:
+            pygame.draw.rect(self.screen, (0, 255, 0), (*segment, 20, 20)) 
+            pygame.draw.rect(self.screen, (255, 0, 0), (self.apple.x, self.apple.y, 20, 20))  
+            pygame.display.flip()
+            
 
     def draw(self):
         """Renders the game objects on the screen."""
         self.screen.fill((0, 0, 0))  
         for segment in self.snake_body:
             pygame.draw.rect(self.screen, (0, 255, 0), (*segment, 20, 20))  
-        pygame.draw.rect(self.screen, (255, 0, 0), (self.apple.x, self.apple.y, 20, 20))  
-        pygame.display.flip()
+            pygame.draw.rect(self.screen, (255, 0, 0), (self.apple.x, self.apple.y, 20, 20))  
+            pygame.display.flip()
+    
+    def writing(self):
+     """Renders Text To Go On The Screen"""
+     # Score Display Still Being Work On, Score Itself Works
+     
+     score = self.snake.score
+     font = pygame.font.Font(None, 36)
+     text = font.render(f"Score: {score}", True, "White")
+     textRectangle = text.get_rect()
+     textRectangle.center = (100,100)
 
     def mainloop(self):
         """Main game loop."""
@@ -61,11 +108,11 @@ class Controller:
             self.handle_events()
             self.update_models()
             self.draw()
-            self.clock.tick(10)  
+            self.clock.tick(10) 
+            self.writing()
         pygame.quit()
 
 # Run the controller
 if __name__ == "__main__":
     game = Controller()
     game.mainloop()
-
