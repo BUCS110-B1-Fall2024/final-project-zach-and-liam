@@ -2,6 +2,7 @@ import pygame
 import random
 from model_a import Snake, Eatable_Object  
 
+
 class Controller:
     """Manages game logic and events."""
 
