@@ -15,7 +15,6 @@ class Eatable_Object:
     """Creates The Eatable Object at A Random Location Each Time"""
 
     def __init__(self, x = 300, y = 300):
-    # x = random.randrange(0,401), y = random.randrange(0,401)):
        self.x = x
        self.y = y
 
