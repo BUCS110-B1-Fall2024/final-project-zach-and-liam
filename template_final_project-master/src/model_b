@@ -97,18 +97,34 @@ class Controller:
     
     def writing(self):
    
-
-        # Draw the score
-        score = self.snake.score
         font = pygame.font.Font(None, 36)
-        text = font.render(f"Score: {score}", True, "White")
-        textRectangle = text.get_rect()
-        textRectangle.topleft = (10, 10)
+        if self.running == True:
+            score = self.snake.score
+            text = font.render(f"Score: {score}", True, "White")
+            textRectangle = text.get_rect()
+            textRectangle.topleft = (10, 10)
 
-        pygame.draw.rect(self.screen, (0, 0, 0), textRectangle)  
-        self.screen.blit(text, textRectangle)
+            pygame.draw.rect(self.screen, (0, 0, 0), textRectangle)  
+            self.screen.blit(text, textRectangle)
+        
+            pygame.display.update(textRectangle)
+            
+        if self.running == False:
+            self.screen.fill((0, 0, 0))  
+            game_over_text = font.render("Game Over", True, "Red")
+            game_over_rect = game_over_text.get_rect(center=(self.WIDTH // 2, self.HEIGHT // 2))
+            self.screen.blit(game_over_text, game_over_rect)
 
-        pygame.display.update(textRectangle)  
+            final_score_text = font.render(f"Final Score: {self.snake.score}", True, "White")
+            final_score_rect = final_score_text.get_rect(center=(self.WIDTH // 2, self.HEIGHT // 2 + 40))
+            self.screen.blit(final_score_text, final_score_rect)
+
+            pygame.display.update()
+            pygame.time.wait(5000)  
+        
+    
+          
+          
 
 
 
