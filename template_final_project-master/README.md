@@ -24,7 +24,7 @@ By Something Specific Happening And Potentially More.
 
 ### Final Design
 
-![final gui] Do Not Have At The Current Moment
+![final gui] (FinalGUI.png)
 
 ## Program Design
 
