@@ -162,10 +162,3 @@ class Controller:
             self.updatetext()
             self.game_over()
         pygame.quit()
-
-def main():
-   # Run the controller
-    if __name__ == "__main__":
-       game = Controller()
-       game.mainloop()
-main()
