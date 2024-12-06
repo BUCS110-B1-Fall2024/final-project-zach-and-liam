@@ -1,3 +1,23 @@
+import pygame
+import random
+from model_a import Snake, Eatable_Object
+
+class Controller:
+    """Manages Game Logic and Events."""
+
+    def __init__(self):
+        """Initializes The Game Window and Objects."""
+
+        pygame.init()
+        self.WIDTH, self.HEIGHT = 400, 400
+        self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
+        self.clock = pygame.time.Clock()
+
+        # Initialize models
+        self.snake = Snake()  
+        self.apple = Eatable_Object()
+ 
+        # Important Program Variables/Objects
         self.snake_dir = (0, 0)
         self.snake_body = [(self.snake.x, self.snake.y)]
         self.running = True
