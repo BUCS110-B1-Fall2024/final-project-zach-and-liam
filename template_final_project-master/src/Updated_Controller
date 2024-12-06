@@ -1,0 +1,151 @@
+        self.snake_dir = (0, 0)
+        self.snake_body = [(self.snake.x, self.snake.y)]
+        self.running = True
+
+    def handle_events(self):
+        """Handles User Input and Game Events."""
+
+        # Key-Based Movement
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP and self.snake_dir != (0, 20):
+                    self.snake_dir = (0, -20)
+
+                elif event.key == pygame.K_DOWN and self.snake_dir != (0, -20):
+                    self.snake_dir = (0, 20)
+        
+                elif event.key == pygame.K_LEFT and self.snake_dir != (20, 0):
+                    self.snake_dir = (-20, 0)
+
+                elif event.key == pygame.K_RIGHT and self.snake_dir != (-20, 0):
+                    self.snake_dir = (20, 0)
+        
+
+        if self.snake_dir != (0, 0):
+            new_head = (self.snake_body[0][0] + self.snake_dir[0], self.snake_body[0][1] + self.snake_dir[1])
+            self.snake_body = [new_head] + self.snake_body[:-1]
+
+            #Updates Snake Position Based On Key Pressed        
+        if self.snake_dir == (20,0): 
+             self.snake.x = self.snake.x + 20
+
+        if self.snake_dir == (-20, 0):
+             self.snake.x = self.snake.x - 20
+
+
+        if self.snake_dir == (0,20):
+             self.snake.y = self.snake.y - 20
+             
+
+        if self.snake_dir == (0, -20):
+             self.snake.y = self.snake.y + 20
+
+        # Checks Boundaries
+        if self.snake.x > 380 or self.snake.x < 0 or self.snake.y > 400 or self.snake.y < 20:
+             self.running = False
+
+    def update_models(self):
+        """Updates The Game State"""
+
+        for i in range(1,1000): # Checks Snake Contact With Itself
+             if self.snake_body[0] in self.snake_body[i:]:
+                self.running = False
+
+        for i in range(1,1000): #Solves Bug When Apple Spawns On Top Of Snake
+             if (self.apple.x, self.apple.y) == self.snake_body[i:]:
+                self.apple.x = random.randrange(0, self.WIDTH, 20)
+                self.apple.y = random.randrange(0, self.HEIGHT, 20)
+                pygame.draw.rect(self.screen, (255, 0, 0), (self.apple.x, self.apple.y, 20, 20)) 
+                
+
+        # Check collision with the apple
+        if self.snake_body[0] == (self.apple.x, self.apple.y):
+
+            self.snake_body.append(self.snake_body[-1])  
+            self.apple.x = random.randrange(0, self.WIDTH, 20)
+            self.apple.y = random.randrange(0, self.HEIGHT, 20)
+            pygame.draw.rect(self.screen, (255, 0, 0), (self.apple.x, self.apple.y, 20, 20)) 
+            self.snake.score += 1
+    
+        for segment in self.snake_body:
+            pygame.draw.rect(self.screen, (0, 255, 0), (*segment, 20, 20)) 
+            pygame.draw.rect(self.screen, (255, 0, 0), (self.apple.x, self.apple.y, 20, 20))  
+            pygame.display.flip()
+            
+
+    def draw(self):
+        """Renders The Game Objects on the Screen."""
+        self.screen.fill((0, 0, 0))  
+        for segment in self.snake_body:
+            pygame.draw.rect(self.screen, (0, 255, 0), (*segment, 20, 20))  
+            pygame.draw.rect(self.screen, (255, 0, 0), (self.apple.x, self.apple.y, 20, 20))  
+            pygame.display.flip()
+    
+    def updatetext(self):
+     """Renders Text To Go On The Screen"""
+
+     font = pygame.font.Font(None, 36)
+     score = self.snake.score
+     text = font.render(f"Score: {score}", True, "White")
+
+     if self.running == True:
+         textRectangle = text.get_rect()
+         textRectangle.topleft = (10, 10)
+
+         pygame.draw.rect(self.screen, (0, 0, 0), textRectangle)  
+         self.screen.blit(text, textRectangle)
+        
+         pygame.display.update(textRectangle) 
+
+
+    def game_over(self):
+         """Deals With Events That Occur When Game Has Ended"""
+         
+         font = pygame.font.Font(None, 36)
+
+         if self.running == False:
+             self.screen.fill((0, 0, 0))  
+             game_over_text = font.render("Game Over", True, "Red")
+             game_over_rect = game_over_text.get_rect(center=(self.WIDTH // 2, self.HEIGHT // 2))
+             self.screen.blit(game_over_text, game_over_rect)
+
+             final_score_text = font.render(f"Final Score: {self.snake.score}", True, "White")
+             final_score_rect = final_score_text.get_rect(center=(self.WIDTH // 2, self.HEIGHT // 2 + 40))
+             self.screen.blit(final_score_text, final_score_rect)
+
+             pygame.display.update()
+             pygame.time.wait(5000) 
+           
+    def powerups(self): 
+
+     if (self.snake.score % 10 == 0 and self.snake.score != 0):
+         self.snake.score +=1
+
+         self.snake_body.append(self.snake_body[-1])
+         
+         for segment in self.snake_body:
+             pygame.draw.rect(self.screen, (0, 255, 0), (*segment, 20, 20))  
+             pygame.display.flip()
+                    
+
+    def mainloop(self):
+        """Main game loop."""
+
+        while self.running:
+            self.handle_events()
+            self.update_models()
+            self.draw()
+            self.powerups()
+            self.clock.tick(8) 
+            self.updatetext()
+            self.game_over()
+        pygame.quit()
+
+def main():
+   # Run the controller
+    if __name__ == "__main__":
+       game = Controller()
+       game.mainloop()
+main()
