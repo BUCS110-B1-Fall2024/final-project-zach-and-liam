@@ -86,4 +86,9 @@ GOAL: When The Game Ends, A Game Over Screen With Your Score Appears
 STEPS: Play Game
 EXPECTED OUTCOME: Blank Screen With Game Over Message And Score Appears When The Game Ends
 
+TEST 9: Continuous Movement
+GOAL: The Snake Should Always Be Moving When A Arrow Key Is Pressed
+STEPS: Press An Arrow Key
+EXPECTED RESULT: Snake Should Not Stop Moving After The Same Starts
+
 
